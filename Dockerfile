@@ -24,3 +24,5 @@ RUN service nginx start
 RUN cp /src/nginx/server.conf /etc/nginx/sites-available/localhost
 
 EXPOSE 80 443
+
+CMD bash src/init.sh
