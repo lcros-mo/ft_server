@@ -12,8 +12,6 @@
 
 FROM debian:buster
 
-ENV AUTOINDEX on
-
 RUN apt-get update && apt-get install -y \
     nginx \
     mariadb-server \
@@ -22,5 +20,7 @@ RUN apt-get update && apt-get install -y \
     php-mbstring \
     wget \
     
-RUN     echo "daemon off;" >> /etc/nginx/nginx.conf && \ 
-        rm var/www/html/index.nginx-debian.html
+RUN service nginx start
+RUN cp /src/nginx/server.conf /etc/nginx/sites-available/localhost
+
+EXPOSE 80 443
