@@ -36,6 +36,14 @@ RUN mv phpMyAdmin-4.9.7-all-languages /var/www/html/phpmyadmin
 COPY srcs/php/info.php /var/www/html
 COPY srcs/php/php.ini /etc/php/7.3/fpm
 
+#wordpress
+ADD https://wordpress.org/latest.tar.gz .
+RUN tar xvf latest.tar.gz
+RUN mv wordpress /var/www/html/
+RUN rm -rf latest.tar.gz
+COPY srcs/wordpress/wp-config.php /var/www/html/wordpress
+RUN	chown -R www-data:www-data /var/www/html
+
 #scrypts
 COPY srcs/service_init.sh /
 CMD bash service_init.sh
