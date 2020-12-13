@@ -6,7 +6,7 @@
 #    By: lcros-mo <lcros-mo@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2020/12/11 12:33:34 by lcros-mo          #+#    #+#              #
-#    Updated: 2020/12/13 14:51:59 by lcros-mo         ###   ########.fr        #
+#    Updated: 2020/12/13 14:55:45 by lcros-mo         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -25,6 +25,6 @@ echo "update mysql.user set plugin='' where user='root';"| mysql -u root --skip-
 if [ "$AUTOINDEX" = "on" ]
 	then mv /var/www/html/index.nginx-debian.html /var/www/html/lmao ;
 	else unlink /etc/nginx/sites-enabled/localhost.conf ;
-		 ln -s /etc/nginx/sites-enabled/localhost.conf /etc/nginx/sites-available; fi
+		 ln -s /etc/nginx/sites-available/localhost.conf /etc/nginx/sites-enabled/; fi
 service nginx restart
 bash
