@@ -23,8 +23,9 @@ echo "update mysql.user set plugin='' where user='root';"| mysql -u root --skip-
 
 #Autoindex
 if [ "$AUTOINDEX" = "on" ]
-	then mv /var/www/html/index.nginx-debian.html /var/www/html/lmao ;
-	else unlink /etc/nginx/sites-enabled/localhost.conf ;
-		 ln -s /etc/nginx/sites-available/localhost.conf /etc/nginx/sites-enabled/; fi
+	then mv /var/www/html/index.nginx-debian.html /var/www/html/lmao ; fi
+if [ "$AUTOINDEX" = "off" ]
+	then rm /etc/nginx/sites-enabled/localhost.conf ;
+		 ln -s /etc/nginx/sites-available/index_off.conf /etc/nginx/sites-enabled/; fi
 service nginx restart
 bash

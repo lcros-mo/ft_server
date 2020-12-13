@@ -12,7 +12,7 @@
 
 FROM debian:buster
 
-ENV autoindex on
+ENV AUTOINDEX off
 
 RUN apt-get update && apt-get install -y
 RUN apt-get -y install nginx
@@ -25,7 +25,7 @@ RUN apt-get -y install php-mysql
 
 # Configure nginx
 COPY srcs/nginx/localhost.conf /etc/nginx/sites-available/
-COPY srcs/nginx/index_off.conf /etc/nginx/sites-avaiable/
+COPY srcs/nginx/index_off.conf /etc/nginx/sites-available/
 RUN ln -s /etc/nginx/sites-available/localhost.conf /etc/nginx/sites-enabled/
 RUN rm /etc/nginx/sites-enabled/default
 
@@ -44,6 +44,13 @@ RUN rm -rf latest.tar.gz
 COPY srcs/wordpress/wp-config.php /var/www/html/wordpress
 RUN	chown -R www-data:www-data /var/www/html
 
+#SSL certifications
+RUN mkdir mkcert
+ADD https://github.com/FiloSottile/mkcert/releases/download/v1.4.1/mkcert-v1.4.1-linux-amd64 /mkcert/
+RUN mv /mkcert/mkcert-v1.4.1-linux-amd64 /mkcert/mkcert
+RUN chmod +x /mkcert/mkcert
+RUN /mkcert/mkcert -install
+RUN /mkcert/mkcert localhost
 #scripts
 COPY srcs/service_init.sh /
 CMD bash service_init.sh
